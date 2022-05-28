@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://NB-XX.github.io</id>
+    <title>NBXX的笔记本</title>
+    <updated>2022-05-28T13:58:40.496Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://NB-XX.github.io"/>
+    <link rel="self" href="https://NB-XX.github.io/atom.xml"/>
+    <subtitle>随便写写咯</subtitle>
+    <logo>https://NB-XX.github.io/images/avatar.png</logo>
+    <icon>https://NB-XX.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2022, NBXX的笔记本</rights>
+    <entry>
+        <title type="html"><![CDATA[【低级错误】循环 函数返回值]]></title>
+        <id>https://NB-XX.github.io/di-ji-cuo-wu-xun-huan-han-shu-fan-hui-zhi/</id>
+        <link href="https://NB-XX.github.io/di-ji-cuo-wu-xun-huan-han-shu-fan-hui-zhi/">
+        </link>
+        <updated>2022-05-28T13:52:34.000Z</updated>
+        <content type="html"><![CDATA[<pre><code>def start(url):
+    link_list = []
+    driver.get(url)
+    xpath = '//ytd-thumbnail[@class=&quot;style-scope ytd-grid-video-renderer&quot;]/a'
+    for content in driver.find_elements(by=By.XPATH, value=xpath):
+        link = content.get_attribute(&quot;href&quot;)
+        print(link)
+        link_list.append(link)
+        return link_list
+</code></pre>
+<p>试图通过循环来获取所有视频a标签里的href值，但是测试了很多次只能获取第一个。<br>
+第一反应是检查返回的对象是个啥，经过查找&lt;selenium.webdriver.remote.webelement.WebElemen&gt;是个列表无误。<br>
+第二反应是检查fin_elements没有有带s，经过检查确实带了呀。<br>
+无奈上调试大法，才发现我的循环怎么执行一次就跳出去了呢？<br>
+原来我把return写循环里了！</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[【低级错误】变量声明的初值设置 循环语句]]></title>
+        <id>https://NB-XX.github.io/di-ji-cuo-wu-bian-liang-sheng-ming-de-chu-zhi-she-zhi-xun-huan-yu-ju/</id>
+        <link href="https://NB-XX.github.io/di-ji-cuo-wu-bian-liang-sheng-ming-de-chu-zhi-she-zhi-xun-huan-yu-ju/">
+        </link>
+        <updated>2022-05-27T17:44:31.000Z</updated>
+        <content type="html"><![CDATA[<pre><code>for value in dic:
+    new_list = []
+    new_list.append(value)
+print(len(new_list))
+</code></pre>
+<p>试图将所有的value添加到new_list里去，但是运行完测试列表长度只添加了一个。<br>
+修改了append、extend、insert多种方法，<br>
+后来才发现我把列表初始化写在了循环里，每次循环都会先清空列表，<br>
+<s>当然只能添加一个咯</s></p>
+]]></content>
+    </entry>
+</feed>
